@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Authorization Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0077B5;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #retryButton {
+            padding: 10px 20px;
+            background-color: #0077B5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #retryButton:hover {
+            background-color: #005983;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Authorization Status</h1>
+        <p id="message">Processing your request...</p>
+        <button id="retryButton" style="display:none;">Try Again</button>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const hash = window.location.hash;
+            const accessToken = new URLSearchParams(hash.substring(1)).get('access_token');
+            const errorElement = document.getElementById("message");
+            const retryButton = document.getElementById("retryButton");
+
+            if (accessToken) {
+                // Display success message
+                errorElement.innerText = "Authorization successful! Fetching your LinkedIn profile...";
+                // Here you can add additional logic to fetch profile data or redirect
+            } else {
+                // Display error message
+                errorElement.innerText = "Bummer, something went wrong during the authorization.";
+                retryButton.style.display = "inline-block";
+                retryButton.onclick = function () {
+                    window.location.href = "https://srushtij05.github.io/LinkedIn_Login/"; // Replace with your login page URL
+                };
+            }
+        };
+    </script>
+
+</body>
+</html>
